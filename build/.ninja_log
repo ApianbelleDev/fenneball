@@ -1,0 +1,21 @@
+# ninja log v5
+20	119	7139331835037495	CMakeFiles/template.dir/src/main.c.obj	d91e8ff201f4c86c
+120	242	7139331836293270	template.elf	292c4d5be62d3cbc
+120	242	7139331836293270	template.exe	292c4d5be62d3cbc
+120	242	7139331836293270	template.map	292c4d5be62d3cbc
+120	242	7139331836293270	C:/proj/pong-psx/build/template.exe	292c4d5be62d3cbc
+242	276	7139331836643375	pong-psx.bin	ee6c64f022b97f64
+120	242	7139331836293270	C:/proj/pong-psx/build/template.map	292c4d5be62d3cbc
+242	276	7139331836643375	pong-psx.cue	ee6c64f022b97f64
+242	276	7139331836643375	C:/proj/pong-psx/build/pong-psx.bin	ee6c64f022b97f64
+242	276	7139331836643375	C:/proj/pong-psx/build/pong-psx.cue	ee6c64f022b97f64
+20	115	7139332333763265	CMakeFiles/template.dir/src/main.c.obj	d91e8ff201f4c86c
+116	239	7139332335001244	template.elf	292c4d5be62d3cbc
+116	239	7139332335001244	template.exe	292c4d5be62d3cbc
+116	239	7139332335001244	template.map	292c4d5be62d3cbc
+116	239	7139332335001244	C:/proj/pong-psx/build/template.exe	292c4d5be62d3cbc
+116	239	7139332335001244	C:/proj/pong-psx/build/template.map	292c4d5be62d3cbc
+240	276	7139332335342175	pong-psx.bin	ee6c64f022b97f64
+240	276	7139332335342175	pong-psx.cue	ee6c64f022b97f64
+240	276	7139332335342175	C:/proj/pong-psx/build/pong-psx.bin	ee6c64f022b97f64
+240	276	7139332335342175	C:/proj/pong-psx/build/pong-psx.cue	ee6c64f022b97f64
