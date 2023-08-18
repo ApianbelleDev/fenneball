@@ -1,8 +1,12 @@
-#include "defines.h"
+#pragma once
+#ifndef OBJ_H
+
+#include <stdbool.h>
 
 struct Paddle{
-	double y, x;
-	double dy;
+	//sx = start x, sy = start y
+	double sx, sy, y, x;
+	double speed;
 	int w, h;
 };
 
@@ -10,5 +14,7 @@ struct Ball{
 	double x, y;
 	double dx, dy;
 	int w, h;
+	bool isMoving;
 };
 
+#endif

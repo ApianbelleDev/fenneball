@@ -1,3 +1,6 @@
+#pragma once
+#ifndef RENDER_H
+
 #include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -27,7 +30,6 @@ typedef struct {
 	uint8_t      *next_packet;
 	int          active_buffer;
 } RenderContext;
-
 // pad buffer arrays
 char padbuff[2][34];
 
@@ -101,3 +103,4 @@ void draw_text(RenderContext *ctx, int x, int y, int z, const char *text) {
 
 	assert(ctx->next_packet <= &(buffer->buffer[BUFFER_LENGTH]));
 }
+#endif

@@ -1,37 +1,28 @@
-#include <stdbool.h>
 #include <psxpad.h>
 
 #include "render.h"
-#include "defines.h"
 #include "obj.h"
+#include "defines.h"
 
-bool checkCollision(){
-}
+struct Paddle playerPaddle;
+struct Paddle enemyPaddle;
+struct Ball ball;
 
-int main(int argc, const char **argv) {
-	// Initialize the GPU and load the default font texture provided by
-	// PSn00bSDK at (960, 0) in VRAM.
-	ResetGraph(0);
-	FntLoad(960, 0);
+void initOBJ(){
 
-	// Set up our rendering context.
-	RenderContext ctx;
-	setup_context(&ctx, SCREEN_XRES, SCREEN_YRES, 0, 0, 0);
-
-	//setup object structs
-	struct Paddle playerPaddle;
-	struct Paddle enemyPaddle;
-	struct Ball ball;
-
-	playerPaddle.x = 0;
-	playerPaddle.y = 100;
-	playerPaddle.dy = 2;
+	playerPaddle.sx = 0;
+	playerPaddle.sy = 100;
+	playerPaddle.x = playerPaddle.sx;
+	playerPaddle.y = playerPaddle.sy;
+	playerPaddle.speed = 2;
 	playerPaddle.w = 16;
 	playerPaddle.h = 64;
 
-	enemyPaddle.x = 320 - 16;
-	enemyPaddle.y = 100;
-	enemyPaddle.dy = 2;
+	enemyPaddle.sx = 320 - 16;
+	enemyPaddle.sy = 100;
+	enemyPaddle.x = enemyPaddle.sx;
+	enemyPaddle.y = enemyPaddle.sy;
+	enemyPaddle.speed = 2;
 	enemyPaddle.w = 16;
 	enemyPaddle.h = 64;
 
@@ -41,56 +32,45 @@ int main(int argc, const char **argv) {
 	ball.dy = 2;
 	ball.w = 8;
 	ball.h = 8;
+}
 
-
-
+void updateOBJ(){
 	PADTYPE *pad;
 
-	// initialize gamepads
-	InitPAD(padbuff[0], 34, padbuff[1], 34);
+	pad = (PADTYPE*)padbuff[0];
 
-	// begin polling
-	StartPAD();
-
-	// to avoid VSync Timeout error
-	ChangeClearPAD(1);
-
-
-	for (;;) {
-		//constantly set the balls dx and dy values so it's always moving.
+	//constantly set the balls dx and dy values so it's always moving.
 		ball.x -= ball.dx;
 		ball.y += ball.dy;
-
-		pad = (PADTYPE*)padbuff[0];
 
 		if (pad->stat == 0) {
 			if ((pad->type == DIGITAL_PAD) || (pad->type == ANALOG_PAD) || (pad->type == DUALSHOCK)) {
 				if (!(pad->btn&PAD_UP)) {
 					if (playerPaddle.y <= 9){
-						playerPaddle.dy = 0;
+						playerPaddle.speed = 0;
 					}
-					playerPaddle.y -= playerPaddle.dy;
+					playerPaddle.y -= playerPaddle.speed;
 				}
 				else if(!(pad->btn&PAD_DOWN)) {
 					if(playerPaddle.y >= 170){
-						playerPaddle.dy = 0;
+						playerPaddle.speed = 0;
 					}
-					playerPaddle.y += playerPaddle.dy;
+					playerPaddle.y += playerPaddle.speed;
 				}
 				if (!(pad->btn&PAD_TRIANGLE)) {
 					if(enemyPaddle.y <= 9){
-						enemyPaddle.dy = 0;
+						enemyPaddle.speed = 0;
 					}
-					enemyPaddle.y -= enemyPaddle.dy;
+					enemyPaddle.y -= enemyPaddle.speed;
 				}
 				else if (!(pad->btn&PAD_CROSS)) {
 					if(enemyPaddle.y >= 170){
-						enemyPaddle.dy = 0;
+						enemyPaddle.speed = 0;
 					}
-					enemyPaddle.y += enemyPaddle.dy;
+					enemyPaddle.y += enemyPaddle.speed;
 				} else {
-					playerPaddle.dy = 2;
-					enemyPaddle.dy = 2;
+					playerPaddle.speed = 2;
+					enemyPaddle.speed = 2;
 				}
 			}
 		}
@@ -114,7 +94,47 @@ int main(int argc, const char **argv) {
 		else if (ball.x >= enemyPaddle.x - enemyPaddle.w / 2 && ball.y <= enemyPaddle.y + enemyPaddle.h && ball.y >= enemyPaddle.y) { 
 			ball.dx = 2;
 		}
+}
 
+void resetOBJ(){
+	//reset ballpos and both paddlepos when ball goes out of play area
+	if (ball.x <= 0 || ball.x >= 340) {
+		ball.x = SCREEN_XRES / 2;
+		ball.y = SCREEN_YRES / 2;
+		playerPaddle.x = playerPaddle.sx;
+		playerPaddle.y = playerPaddle.sy;
+		enemyPaddle.x = enemyPaddle.sx;
+		enemyPaddle.y = enemyPaddle.sy;
+	}
+}
+
+
+int main(int argc, const char **argv) {
+	
+	// Initialize the GPU and load the default font texture provided by
+	// PSn00bSDK at (960, 0) in VRAM.
+	ResetGraph(0);
+	FntLoad(960, 0);
+
+	// Set up our rendering context.
+	RenderContext ctx;
+	setup_context(&ctx, SCREEN_XRES, SCREEN_YRES, 0, 0, 0);
+
+	initOBJ();
+
+	// initialize gamepads
+	PADTYPE *pad;
+	InitPAD(padbuff[0], 34, padbuff[1], 34);
+
+	// begin polling
+	StartPAD();
+
+	// to avoid VSync Timeout error
+	ChangeClearPAD(1);
+
+	while(1) {
+		resetOBJ();
+		updateOBJ();
 
 		// Draw the square by allocating a TILE (i.e. untextured solid color
 		// rectangle) primitive at Z = 1.
@@ -138,11 +158,9 @@ int main(int argc, const char **argv) {
 		setWH  (ballTile, ball.w, ball.h);
 		setRGB0(ballTile, 255, 255, 255);
 
-
-
 		// Draw some text in front of the square (Z = 0, primitives with higher
 		// Z indices are drawn first).
-		draw_text(&ctx, 8, 16, 0, "controls:\n\ndpad up/down: move right paddle\nTriangle/Cross: move left paddle");
+		draw_text(&ctx, 8, 16, 0, "controls:\n\ndpad up/down: move right paddle\nTriangle/Cross: move left paddle\n");
 
 		flip_buffers(&ctx);
 	}
