@@ -13,6 +13,9 @@ int gameTimer;
 int playerScore;
 int enemyScore;
 
+extern const uint32_t tim_title[];
+TIM_IMAGE tim;
+
 void initOBJ(){
 	//init structs and enums
 	playerPaddle.sx = 0;
@@ -125,7 +128,7 @@ void resetOBJ(){
 
 
 int main(int argc, const char **argv) {
-	enum GameStates curState = GAMEPLAY;
+	enum GameStates curState = LOGO;
 	logoTimer = 180;
 	gameTimer = 60;
 	
@@ -163,7 +166,16 @@ int main(int argc, const char **argv) {
 
 			} break;
 			case TITLE:{
-				//title code here
+			//title code here
+			PADTYPE *pad;
+			pad = (PADTYPE*)padbuff[0];
+			if (pad->stat == 0) {
+				if ((pad->type == DIGITAL_PAD) || (pad->type == ANALOG_PAD) || (pad->type == DUALSHOCK)) {
+					if(!(pad->btn&PAD_START)){
+						curState = GAMEPLAY;
+					}
+				}
+			}
 				draw_text(&ctx, 8, 16, 0, "TITLE");
 				flip_buffers(&ctx);
 			} break;

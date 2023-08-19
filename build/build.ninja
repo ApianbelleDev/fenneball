@@ -57,6 +57,14 @@ build CMakeFiles/template.dir/src/main.c.obj: C_COMPILER__template_unscanned_Deb
   OBJECT_DIR = CMakeFiles\template.dir
   OBJECT_FILE_DIR = CMakeFiles\template.dir\src
 
+build CMakeFiles/template.dir/src/title.s.obj: ASM_COMPILER__template_unscanned_Debug C$:/proj/pong-psx/src/title.s || cmake_object_order_depends_target_template
+  DEFINES = -DPSN00BSDK=1
+  DEP_FILE = CMakeFiles\template.dir\src\title.s.obj.d
+  FLAGS = -g -g -Wa,--strip-local-absolute -ffreestanding -fno-builtin -nostdlib -fdata-sections -ffunction-sections -fsigned-char -fno-strict-overflow -fdiagnostics-color=always -msoft-float -march=r3000 -mtune=r3000 -mabi=32 -mno-mt -mno-llsc -Og -mdivide-breaks -G8 -fno-pic -mno-abicalls -mgpopt -mno-extern-sdata
+  INCLUDES = -IC:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/../../../include/libpsn00b
+  OBJECT_DIR = CMakeFiles\template.dir
+  OBJECT_FILE_DIR = CMakeFiles\template.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target template
@@ -65,7 +73,7 @@ build CMakeFiles/template.dir/src/main.c.obj: C_COMPILER__template_unscanned_Deb
 #############################################
 # Link the executable template.elf
 
-build template.elf template.exe template.map | ${cmake_ninja_workdir}template.exe ${cmake_ninja_workdir}template.map: CXX_EXECUTABLE_LINKER__template_Debug CMakeFiles/template.dir/src/main.c.obj | C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgpu_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgte_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxspu_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxcd_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxpress_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxsio_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxetc_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxapi_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libsmd_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/liblzp_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libc_exe_gprel.a
+build template.elf template.exe template.map | ${cmake_ninja_workdir}template.exe ${cmake_ninja_workdir}template.map: CXX_EXECUTABLE_LINKER__template_Debug CMakeFiles/template.dir/src/main.c.obj CMakeFiles/template.dir/src/title.s.obj | C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgpu_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgte_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxspu_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxcd_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxpress_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxsio_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxetc_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxapi_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libsmd_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/liblzp_exe_gprel.a C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libc_exe_gprel.a
   FLAGS = -g
   LINK_FLAGS = -TC:\PSn00bSDK-0.24-win32\lib\libpsn00b\cmake\..\ldscripts\exe.ld -nostdlib -Wl,-gc-sections -G8 -static
   LINK_LIBRARIES = -lgcc  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgpu_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgte_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxspu_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxcd_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxpress_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxsio_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxetc_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxapi_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libsmd_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/liblzp_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libc_exe_gprel.a  -lgcc

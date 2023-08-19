@@ -11,7 +11,7 @@ project(
 	HOMEPAGE_URL "http://lameguy64.net/?page=psn00bsdk"
 )
 
-psn00bsdk_add_executable(template GPREL src/main.c)
+psn00bsdk_add_executable(template GPREL src/main.c src/title.s)
 
 psn00bsdk_add_cd_image(
 	iso      # Target name
