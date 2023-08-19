@@ -3,18 +3,28 @@
 
 #include <stdbool.h>
 
-struct Paddle{
+struct Paddle {
 	//sx = start x, sy = start y
 	double sx, sy, y, x;
 	double speed;
 	int w, h;
 };
 
-struct Ball{
+struct Ball {
 	double x, y;
 	double dx, dy;
 	int w, h;
 	bool isMoving;
+};
+
+struct Game {
+	bool isRunning;
+};
+
+typedef enum GameStates {
+ LOGO,
+ TITLE,
+ GAMEPLAY
 };
 
 #endif
