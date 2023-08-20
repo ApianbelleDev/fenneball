@@ -47,45 +47,46 @@ void updateOBJ(){
 	PADTYPE *pad;
 	pad = (PADTYPE*)padbuff[0];
 
+	//UPDATE BALL
+
 	//at the beginning of each gameplay round, increment gameTimer. when it reaches 60(1 second), start moving the ball until it goes offscreen and objects(including gameTimer) reset
 	gameTimer--;
 	if(gameTimer <= 0){
 		ball.x -= ball.dx;
 		ball.y += ball.dy;
-	}
 
+		//UPDATE PLAYER PADDLE
 		if (pad->stat == 0) {
 			if ((pad->type == DIGITAL_PAD) || (pad->type == ANALOG_PAD) || (pad->type == DUALSHOCK)) {
 				if (!(pad->btn&PAD_UP)) {
-					if (playerPaddle.y <= 9){
-						playerPaddle.speed = 0;
-					}
 					playerPaddle.y -= playerPaddle.speed;
 				}
-				else if(!(pad->btn&PAD_DOWN)) {
-					if(playerPaddle.y >= 170){
-						playerPaddle.speed = 0;
-					}
+				else if (!(pad->btn&PAD_DOWN)) {
 					playerPaddle.y += playerPaddle.speed;
 				}
-				if (!(pad->btn&PAD_TRIANGLE)) {
-					if(enemyPaddle.y <= 9){
-						enemyPaddle.speed = 0;
-					}
+				if (playerPaddle.y <= 0){
+					playerPaddle.y = 0;
+				}
+				else if (playerPaddle.y >= 170) {
+					playerPaddle.y = 170;
+				}
+				if (enemyPaddle.y >= ball.y) {
 					enemyPaddle.y -= enemyPaddle.speed;
 				}
-				else if (!(pad->btn&PAD_CROSS)) {
-					if(enemyPaddle.y >= 170){
-						enemyPaddle.speed = 0;
-					}
+				if (enemyPaddle.y <= ball.y) {
 					enemyPaddle.y += enemyPaddle.speed;
-				} else {
-					playerPaddle.speed = 2;
-					enemyPaddle.speed = 2;
+				}
+				if (enemyPaddle.y <= 0){
+					enemyPaddle.y = 0;
+				}
+				else if (enemyPaddle.y >= 170){
+					enemyPaddle.y = 170;
 				}
 			}
 		}
 
+	}
+	
 		//COLLISION
 
 		// ball to bottom screen bound
@@ -105,6 +106,9 @@ void updateOBJ(){
 		else if (ball.x >= enemyPaddle.x - enemyPaddle.w / 2 && ball.y <= enemyPaddle.y + enemyPaddle.h && ball.y >= enemyPaddle.y) { 
 			ball.dx = 2;
 		}
+
+		//ENEMY PADDLE AI
+
 }
 
 void resetOBJ(){
@@ -128,7 +132,7 @@ void resetOBJ(){
 
 
 int main(int argc, const char **argv) {
-	enum GameStates curState = LOGO;
+	enum GameStates curState = GAMEPLAY;
 	logoTimer = 180;
 	gameTimer = 60;
 	

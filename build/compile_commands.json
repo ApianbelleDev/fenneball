@@ -4,11 +4,5 @@
   "command": "C:\\PSn00bSDK-0.24-win32\\bin\\mipsel-none-elf-gcc.exe -DPSN00BSDK=1 -IC:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/../../../include/libpsn00b -g -g -Wa,--strip-local-absolute -ffreestanding -fno-builtin -nostdlib -fdata-sections -ffunction-sections -fsigned-char -fno-strict-overflow -fdiagnostics-color=always -msoft-float -march=r3000 -mtune=r3000 -mabi=32 -mno-mt -mno-llsc -Og -mdivide-breaks -G8 -fno-pic -mno-abicalls -mgpopt -mno-extern-sdata -o CMakeFiles\\template.dir\\src\\main.c.obj -c C:\\proj\\pong-psx\\src\\main.c",
   "file": "C:\\proj\\pong-psx\\src\\main.c",
   "output": "CMakeFiles\\template.dir\\src\\main.c.obj"
-},
-{
-  "directory": "C:/proj/pong-psx/build",
-  "command": "C:\\PSn00bSDK-0.24-win32\\bin\\mipsel-none-elf-gcc.exe -DPSN00BSDK=1 -IC:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/../../../include/libpsn00b -g -g -Wa,--strip-local-absolute -ffreestanding -fno-builtin -nostdlib -fdata-sections -ffunction-sections -fsigned-char -fno-strict-overflow -fdiagnostics-color=always -msoft-float -march=r3000 -mtune=r3000 -mabi=32 -mno-mt -mno-llsc -Og -mdivide-breaks -G8 -fno-pic -mno-abicalls -mgpopt -mno-extern-sdata -o CMakeFiles\\template.dir\\src\\title.s.obj -c C:\\proj\\pong-psx\\src\\title.s",
-  "file": "C:\\proj\\pong-psx\\src\\title.s",
-  "output": "CMakeFiles\\template.dir\\src\\title.s.obj"
 }
 ]
