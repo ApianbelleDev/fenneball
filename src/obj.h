@@ -8,6 +8,7 @@ struct Paddle {
 	double sx, sy, y, x;
 	double speed;
 	int w, h;
+	int target;
 };
 
 struct Ball {

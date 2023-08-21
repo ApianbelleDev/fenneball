@@ -4,7 +4,7 @@
 
 	NOTE: all paths are relative to the build directory; if you want to include
 	a file from the source tree, you'll have to prepend its path with
-	C:/proj/pong-psx.
+	C:/proj/fenneball.
 -->
 <iso_project>
 	<track type="data">
@@ -44,7 +44,7 @@
 			PSn00bSDK for obvious reasons, but can be dumped from an official
 			game using dumpsxiso or extracted from the Sony SDK.
 		-->
-		<!--<license file="C:/proj/pong-psx/license.dat" />-->
+		<!--<license file="C:/proj/fenneball/license.dat" />-->
 
 		<!--
 			Files and directories can be added to the disc by placing <file>
@@ -59,7 +59,7 @@
 			contain any number of files.
 		-->
 		<directory_tree>
-			<file name="SYSTEM.CNF"		type="data" source="C:/proj/pong-psx/system.cnf" />
+			<file name="SYSTEM.CNF"		type="data" source="C:/proj/fenneball/system.cnf" />
 			<file name="TEMPLATE.EXE"	type="data" source="template.exe" />
 			<!--
 				This file is only required if you are using dynamic linking
@@ -79,5 +79,5 @@
 		or MP3 format (using WAV or FLAC is highly recommended to preserve
 		audio quality if you have a lossless copy of the source track).
 	-->
-	<!--<track type="audio" source="C:/proj/pong-psx/track2.wav" />-->
+	<!--<track type="audio" source="C:/proj/fenneball/track2.wav" />-->
 </iso_project>

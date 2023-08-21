@@ -22,7 +22,7 @@ void initOBJ(){
 	playerPaddle.sy = 100;
 	playerPaddle.x = playerPaddle.sx;
 	playerPaddle.y = playerPaddle.sy;
-	playerPaddle.speed = 4;
+	playerPaddle.speed = 3;
 	playerPaddle.w = 16;
 	playerPaddle.h = 64;
 
@@ -30,9 +30,10 @@ void initOBJ(){
 	enemyPaddle.sy = 100;
 	enemyPaddle.x = enemyPaddle.sx;
 	enemyPaddle.y = enemyPaddle.sy;
-	enemyPaddle.speed = 4;
+	enemyPaddle.speed = 2;
 	enemyPaddle.w = 16;
 	enemyPaddle.h = 64;
+	enemyPaddle.target = ball.x + 1;
 
 	ball.x = SCREEN_XRES / 2;
 	ball.y = SCREEN_YRES / 2;
@@ -70,17 +71,18 @@ void updateOBJ(){
 				else if (playerPaddle.y >= 170) {
 					playerPaddle.y = 170;
 				}
-				if (enemyPaddle.y >= ball.y) {
+				//ENEMY AI
+				if (enemyPaddle.y > ball.y) {
 					enemyPaddle.y -= enemyPaddle.speed;
 				}
-				if (enemyPaddle.y <= ball.y) {
+				if (enemyPaddle.y < ball.y) {
 					enemyPaddle.y += enemyPaddle.speed;
 				}
 				if (enemyPaddle.y <= 0){
 					enemyPaddle.y = 0;
 				}
 				else if (enemyPaddle.y >= 170){
-					enemyPaddle.y = 170;
+				enemyPaddle.y = 170;
 				}
 			}
 		}
@@ -106,8 +108,6 @@ void updateOBJ(){
 		else if (ball.x >= enemyPaddle.x - enemyPaddle.w / 2 && ball.y <= enemyPaddle.y + enemyPaddle.h && ball.y >= enemyPaddle.y) { 
 			ball.dx = 2;
 		}
-
-		//ENEMY PADDLE AI
 
 }
 

@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\proj\pong-psx -BC:\proj\pong-psx\build
+  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\proj\fenneball -BC:\proj\fenneball\build
   description = Re-running CMake...
   generator = 1
 

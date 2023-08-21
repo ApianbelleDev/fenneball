@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/proj/pong-psx/build/
+cmake_ninja_workdir = C$:/proj/fenneball/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target template
 
@@ -49,7 +49,7 @@ cmake_ninja_workdir = C$:/proj/pong-psx/build/
 
 build cmake_object_order_depends_target_template: phony || CMakeFiles/template.dir
 
-build CMakeFiles/template.dir/src/main.c.obj: C_COMPILER__template_unscanned_Debug C$:/proj/pong-psx/src/main.c || cmake_object_order_depends_target_template
+build CMakeFiles/template.dir/src/main.c.obj: C_COMPILER__template_unscanned_Debug C$:/proj/fenneball/src/main.c || cmake_object_order_depends_target_template
   DEFINES = -DPSN00BSDK=1
   DEP_FILE = CMakeFiles\template.dir\src\main.c.obj.d
   FLAGS = -g -g -Wa,--strip-local-absolute -ffreestanding -fno-builtin -nostdlib -fdata-sections -ffunction-sections -fsigned-char -fno-strict-overflow -fdiagnostics-color=always -msoft-float -march=r3000 -mtune=r3000 -mabi=32 -mno-mt -mno-llsc -Og -mdivide-breaks -G8 -fno-pic -mno-abicalls -mgpopt -mno-extern-sdata
@@ -70,7 +70,7 @@ build template.elf template.exe template.map | ${cmake_ninja_workdir}template.ex
   LINK_FLAGS = -TC:\PSn00bSDK-0.24-win32\lib\libpsn00b\cmake\..\ldscripts\exe.ld -nostdlib -Wl,-gc-sections -G8 -static
   LINK_LIBRARIES = -lgcc  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgpu_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxgte_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxspu_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxcd_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxpress_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxsio_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxetc_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libpsxapi_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libsmd_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/liblzp_exe_gprel.a  C:/PSn00bSDK-0.24-win32/lib/libpsn00b/debug/libc_exe_gprel.a  -lgcc
   OBJECT_DIR = CMakeFiles\template.dir
-  POST_BUILD = cmd.exe /C "cd /D C:\proj\pong-psx\build && C:\PSn00bSDK-0.24-win32\bin\elf2x.exe -q C:\proj\pong-psx\build\template.elf C:\proj\pong-psx\build\template.exe && C:\PSn00bSDK-0.24-win32\bin\mipsel-none-elf-nm.exe -f posix -l -n C:\proj\pong-psx\build\template.elf >C:\proj\pong-psx\build\template.map"
+  POST_BUILD = cmd.exe /C "cd /D C:\proj\fenneball\build && C:\PSn00bSDK-0.24-win32\bin\elf2x.exe -q C:\proj\fenneball\build\template.elf C:\proj\fenneball\build\template.exe && C:\PSn00bSDK-0.24-win32\bin\mipsel-none-elf-nm.exe -f posix -l -n C:\proj\fenneball\build\template.elf >C:\proj\fenneball\build\template.map"
   PRE_LINK = cd .
   RESTAT = 1
   TARGET_FILE = template.elf
@@ -87,7 +87,7 @@ build iso: phony CMakeFiles/iso fenneball.bin fenneball.cue template.elf
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\proj\pong-psx\build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\proj\pong-psx -BC:\proj\pong-psx\build"
+  COMMAND = cmd.exe /C "cd /D C:\proj\fenneball\build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\proj\fenneball -BC:\proj\fenneball\build"
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -99,7 +99,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\proj\pong-psx\build && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\proj\pong-psx -BC:\proj\pong-psx\build"
+  COMMAND = cmd.exe /C "cd /D C:\proj\fenneball\build && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\proj\fenneball -BC:\proj\fenneball\build"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -116,8 +116,8 @@ build CMakeFiles/iso | ${cmake_ninja_workdir}CMakeFiles/iso: phony fenneball.bin
 #############################################
 # Custom command for fenneball.bin
 
-build fenneball.bin fenneball.cue | ${cmake_ninja_workdir}fenneball.bin ${cmake_ninja_workdir}fenneball.cue: CUSTOM_COMMAND template.elf C$:/proj/pong-psx/system.cnf || template.elf
-  COMMAND = cmd.exe /C "cd /D C:\proj\pong-psx\build && C:\PSn00bSDK-0.24-win32\bin\mkpsxiso.exe -y -o fenneball.bin -c fenneball.cue C:/proj/pong-psx/build/cd_image_d00471dcf544c6cf.xml"
+build fenneball.bin fenneball.cue | ${cmake_ninja_workdir}fenneball.bin ${cmake_ninja_workdir}fenneball.cue: CUSTOM_COMMAND template.elf C$:/proj/fenneball/system.cnf || template.elf
+  COMMAND = cmd.exe /C "cd /D C:\proj\fenneball\build && C:\PSn00bSDK-0.24-win32\bin\mkpsxiso.exe -y -o fenneball.bin -c fenneball.cue C:/proj/fenneball/build/cd_image_d00471dcf544c6cf.xml"
   DESC = Building CD image fenneball
   restat = 1
 
@@ -132,7 +132,7 @@ build template: phony template.elf
 # =============================================================================
 
 #############################################
-# Folder: C:/proj/pong-psx/build
+# Folder: C:/proj/fenneball/build
 
 build all: phony template.elf iso
 
@@ -143,14 +143,14 @@ build all: phony template.elf iso
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/internal_setup.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-debug.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-release.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/sdk.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeASMInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Platform/Generic.cmake C$:/proj/pong-psx/CMakeLists.txt C$:/proj/pong-psx/iso.xml CMakeCache.txt CMakeFiles/3.27.1/CMakeASMCompiler.cmake CMakeFiles/3.27.1/CMakeCCompiler.cmake CMakeFiles/3.27.1/CMakeCXXCompiler.cmake CMakeFiles/3.27.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/internal_setup.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-debug.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-release.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/sdk.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeASMInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Platform/Generic.cmake C$:/proj/fenneball/CMakeLists.txt C$:/proj/fenneball/iso.xml CMakeCache.txt CMakeFiles/3.27.1/CMakeASMCompiler.cmake CMakeFiles/3.27.1/CMakeCCompiler.cmake CMakeFiles/3.27.1/CMakeCXXCompiler.cmake CMakeFiles/3.27.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/internal_setup.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-debug.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-release.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/sdk.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeASMInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Platform/Generic.cmake C$:/proj/pong-psx/CMakeLists.txt C$:/proj/pong-psx/iso.xml CMakeCache.txt CMakeFiles/3.27.1/CMakeASMCompiler.cmake CMakeFiles/3.27.1/CMakeCCompiler.cmake CMakeFiles/3.27.1/CMakeCXXCompiler.cmake CMakeFiles/3.27.1/CMakeSystem.cmake: phony
+build C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/internal_setup.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-debug.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b-release.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/libpsn00b.cmake C$:/PSn00bSDK-0.24-win32/lib/libpsn00b/cmake/sdk.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeASMInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-ASM.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.27/Modules/Platform/Generic.cmake C$:/proj/fenneball/CMakeLists.txt C$:/proj/fenneball/iso.xml CMakeCache.txt CMakeFiles/3.27.1/CMakeASMCompiler.cmake CMakeFiles/3.27.1/CMakeCCompiler.cmake CMakeFiles/3.27.1/CMakeCXXCompiler.cmake CMakeFiles/3.27.1/CMakeSystem.cmake: phony
 
 
 #############################################
