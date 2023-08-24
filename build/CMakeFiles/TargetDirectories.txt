@@ -1,0 +1,4 @@
+C:/proj/fenneball/build/CMakeFiles/template.dir
+C:/proj/fenneball/build/CMakeFiles/iso.dir
+C:/proj/fenneball/build/CMakeFiles/edit_cache.dir
+C:/proj/fenneball/build/CMakeFiles/rebuild_cache.dir

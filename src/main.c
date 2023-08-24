@@ -13,6 +13,9 @@ int gameTimer;
 int playerScore;
 int enemyScore;
 
+extern const uint32_t tim_title[];
+TIM_IMAGE tim;
+
 void initOBJ(){
 	//init structs and enums
 	playerPaddle.sx = 0;
@@ -129,7 +132,7 @@ void resetOBJ(){
 
 
 int main(int argc, const char **argv) {
-	enum GameStates curState = TITLE;
+	enum GameStates curState = GAMEPLAY;
 	logoTimer = 180;
 	gameTimer = 60;
 	
@@ -177,8 +180,7 @@ int main(int argc, const char **argv) {
 					}
 				}
 			}
-				draw_text(&ctx, 130, 50, 0, "FENNEBALL");
-				draw_text(&ctx, 120, 180, 0, "Press Start");
+				draw_text(&ctx, 8, 16, 0, "TITLE");
 				flip_buffers(&ctx);
 			} break;
 			case GAMEPLAY:{
