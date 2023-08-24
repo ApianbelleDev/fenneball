@@ -1,0 +1,206 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "raylib.h"
+
+
+#include "obj.h"
+#include "defines.h"
+
+struct Paddle playerPaddle;
+struct Paddle enemyPaddle;
+struct Ball ball;
+
+int logoTimer;
+int gameTimer;
+int playerScore;
+int enemyScore;
+
+int enemyTargetY;
+
+int mod (int a, int b) {
+   if(b < 0) //you can check for b == 0 separately and do what you want
+     return -mod(-a, -b);   
+   int ret = a % b;
+   if(ret < 0)
+     ret+=b;
+   return ret;
+}
+
+int randRange(int l, int u){
+	return (rand() % (u - l + 1)) + l;
+}
+
+void initOBJ(){
+	//init structs and enums
+	playerPaddle.sx = 0;
+	playerPaddle.sy = 100;
+	playerPaddle.x = playerPaddle.sx;
+	playerPaddle.y = playerPaddle.sy;
+	playerPaddle.speed = 3;
+	playerPaddle.w = 16;
+	playerPaddle.h = 64;
+
+	enemyPaddle.sx = 320 - 16;
+	enemyPaddle.sy = 100;
+	enemyPaddle.x = enemyPaddle.sx;
+	enemyPaddle.y = enemyPaddle.sy;
+	enemyPaddle.speed = 2;
+	enemyPaddle.w = 16;
+	enemyPaddle.h = 64;
+	enemyPaddle.target = ball.x + 1;
+
+	ball.x = SCREEN_XRES / 2;
+	ball.y = SCREEN_YRES / 2;
+	ball.dx = -2;
+	ball.dy = 2;
+	ball.w = 8;
+	ball.h = 8;
+}
+
+void PredictBallY(){
+	//get the time it takes for the ball to hit the right side of the screen
+	int remainingTime = (SCREEN_XRES - ball.x) / ball.dx;
+
+	//get the projected ball Y pos
+	int projectedYPos = ball.y + ball.dy * remainingTime;
+
+	projectedYPos = mod(projectedYPos, 2 * SCREEN_YRES);
+	if (projectedYPos > SCREEN_YRES) {
+		projectedYPos = 2 * SCREEN_YRES - projectedYPos;
+	}
+
+	enemyTargetY = projectedYPos + randRange(10 + enemyPaddle.w / 2, 10 - -enemyPaddle.w / 2);
+}
+
+void updateOBJ(){
+
+	//UPDATE BALL
+
+	//at the beginning of each gameplay round, increment gameTimer. when it reaches 60(1 second), start moving the ball until it goes offscreen and objects(including gameTimer) reset
+	if(gameTimer > 0){
+		gameTimer--;
+	}
+	if(gameTimer <= 0){
+		ball.x += ball.dx;
+		ball.y += ball.dy;
+		if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
+			playerPaddle.y -= playerPaddle.speed;
+		}
+		else if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN)){
+			playerPaddle.y += playerPaddle.speed;
+		}
+		if (playerPaddle.y <= 0) {
+			playerPaddle.y = 0;
+		}
+		else if (playerPaddle.y >= 170) {
+			playerPaddle.y = 170;
+		}
+		//ENEMY AI
+		if (enemyPaddle.y + enemyPaddle.h / 2 > enemyTargetY) {
+			enemyPaddle.y -= enemyPaddle.speed;
+		}
+		if (enemyPaddle.y + enemyPaddle.h / 2 < enemyTargetY) {
+			enemyPaddle.y += enemyPaddle.speed;
+		}
+		if (enemyPaddle.y <= 0){
+			enemyPaddle.y = 0;
+		}
+		else if (enemyPaddle.y >= 170){
+		enemyPaddle.y = 170;
+		}
+	}
+		//COLLISION
+		// ball to bottom screen bound
+		if (ball.y >= 220){
+			ball.dy = -2;
+		}
+		// ball to top screen bound
+		else if(ball.y <= 0){
+			ball.dy = 2;
+		}
+
+		//ball to left paddle
+		if (ball.x <= playerPaddle.x + playerPaddle.w && ball.y <= playerPaddle.y + playerPaddle.h && ball.y >= playerPaddle.y) { 
+			ball.dx = 2;
+			PredictBallY();
+		}
+		//ball to right paddle
+		else if (ball.x >= enemyPaddle.x - enemyPaddle.w / 2 && ball.y <= enemyPaddle.y + enemyPaddle.h && ball.y >= enemyPaddle.y) { 
+			ball.dx = -2;
+		}
+
+}
+
+void resetOBJ(){
+	//reset ballpos and both paddlepos when ball goes out of play area
+	if (ball.x <= 0 || ball.x >= 340) {
+		if(ball.x <= 0){
+			enemyScore++;
+		}
+		else if(ball.x >=340){
+			playerScore++;
+		}
+		ball.x = SCREEN_XRES / 2;
+		ball.y = SCREEN_YRES / 2;
+		playerPaddle.x = playerPaddle.sx;
+		playerPaddle.y = playerPaddle.sy;
+		enemyPaddle.x = enemyPaddle.sx;
+		enemyPaddle.y = enemyPaddle.sy;
+		gameTimer = 60;
+	}
+}
+
+
+int main(void) {
+	enum GameStates curState = TITLE;
+	logoTimer = 180;
+	gameTimer = 60;
+
+	//initialize window
+	InitWindow(SCREEN_XRES, SCREEN_YRES, "Fenneball");
+	SetTargetFPS(60);
+
+	initOBJ();
+
+	while(!WindowShouldClose()) {
+		switch(curState){
+			case LOGO:{
+				//logo code here(3 second timer showing a fullscreen image with possibly a fennekin or something idk.)
+				logoTimer--;
+				if (logoTimer <= 0){
+					curState = TITLE;
+				}
+
+			} break;
+			case TITLE:{
+			//title code here
+			if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)){
+				curState = GAMEPLAY;
+			}
+				//draw_text(&ctx, 130, 50, 0, "FENNEBALL");
+				//draw_text(&ctx, 120, 180, 0, "Press Start");
+				//flip_buffers(&ctx);
+			} break;
+			case GAMEPLAY:{
+				resetOBJ();
+				updateOBJ();
+			} break;
+			default: break;
+		}
+		BeginDrawing();
+			if(curState == TITLE){
+				DrawText("TITLE", 0, 0, 20, WHITE);
+			}
+			else if(curState == GAMEPLAY){
+				ClearBackground(BLACK);
+				DrawRectangle(playerPaddle.x, playerPaddle.y, playerPaddle.w, playerPaddle.h, WHITE);
+				DrawRectangle(enemyPaddle.x, enemyPaddle.y, enemyPaddle.w, enemyPaddle.h, WHITE);
+				DrawRectangle(ball.x, ball.y, ball.w, ball.h, WHITE);
+				//DrawRectangle(SCREEN_XRES - 16, enemyTargetY, 16, 16, RED);
+			}
+			//draw here
+		EndDrawing();
+	}
+	CloseWindow();
+	return 0;
+}
