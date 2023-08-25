@@ -258,6 +258,7 @@ int main(void) {
 				DrawTexture(paddleTex, playerPaddle.x, playerPaddle.y, WHITE);
 				DrawTexture(paddleTex, enemyPaddle.x, enemyPaddle.y, WHITE);
 				DrawTexture(ballTex, ball.x, ball.y, WHITE);
+				DrawText(TextFormat("%i - %i", playerScore, enemyScore), SCREEN_XRES / 2 - 20, 30, 20, WHITE);
 				//DrawRectangle(SCREEN_XRES - 16, enemyTargetY, 16, 16, RED);
 			}
 			//draw here
