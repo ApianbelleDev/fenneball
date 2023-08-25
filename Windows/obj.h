@@ -1,25 +1,20 @@
 #pragma once
 #ifndef OBJ_H
 
-#include <stdbool.h>
+#include "raylib.h"
 
 struct Paddle {
 	//sx = start x, sy = start y
-	double sx, sy, y, x;
-	double speed;
+	float sx, sy, y, x;
+	float speed;
 	int w, h;
 	int target;
 };
 
 struct Ball {
-	double x, y;
-	double dx, dy;
+	float x, y;
+	float dx, dy;
 	int w, h;
-	bool isMoving;
-};
-
-struct Game {
-	bool isRunning;
 };
 
 typedef enum GameStates {

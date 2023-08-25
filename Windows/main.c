@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "raylib.h"
 
 
@@ -12,10 +13,19 @@ struct Ball ball;
 
 int logoTimer;
 int gameTimer;
-int playerScore;
-int enemyScore;
+int playerScore = 0;
+int enemyScore = 0;
+int cur = 0;
+int curX, curY;
 
 int enemyTargetY;
+bool isTwoPlayer = false;
+
+//define textures for loading
+Texture2D paddleTex;
+Texture2D ballTex; 	
+Texture2D titleTex;
+Texture2D curTex;
 
 int mod (int a, int b) {
    if(b < 0) //you can check for b == 0 separately and do what you want
@@ -55,6 +65,16 @@ void initOBJ(){
 	ball.dy = 2;
 	ball.w = 8;
 	ball.h = 8;
+
+	//load images into texture variables
+	paddleTex = LoadTexture("res/paddle.png");
+	ballTex 	= LoadTexture("res/ball.png");
+	titleTex  = LoadTexture("res/title.png");
+	curTex 	= LoadTexture("res/cur.png");
+
+	//init cursor position
+	curX = 100;
+	curY = 150;
 }
 
 void PredictBallY(){
@@ -95,20 +115,29 @@ void updateOBJ(){
 		else if (playerPaddle.y >= 170) {
 			playerPaddle.y = 170;
 		}
-		//ENEMY AI
-		if (enemyPaddle.y + enemyPaddle.h / 2 > enemyTargetY) {
-			enemyPaddle.y -= enemyPaddle.speed;
+		if(!isTwoPlayer){
+			//ENEMY AI
+			if (enemyPaddle.y + enemyPaddle.h / 2 > enemyTargetY) {
+				enemyPaddle.y -= enemyPaddle.speed;
+			}
+			if (enemyPaddle.y + enemyPaddle.h / 2 < enemyTargetY) {
+				enemyPaddle.y += enemyPaddle.speed;
+			}
+		}	else {
+			if(IsKeyDown(KEY_DOWN)){
+				enemyPaddle.y += playerPaddle.speed;
+			}
+			else if(IsKeyDown(KEY_UP)){
+				enemyPaddle.y -= playerPaddle.speed;
+			}
 		}
-		if (enemyPaddle.y + enemyPaddle.h / 2 < enemyTargetY) {
-			enemyPaddle.y += enemyPaddle.speed;
-		}
+		
 		if (enemyPaddle.y <= 0){
 			enemyPaddle.y = 0;
 		}
 		else if (enemyPaddle.y >= 170){
 		enemyPaddle.y = 170;
 		}
-	}
 		//COLLISION
 		// ball to bottom screen bound
 		if (ball.y >= 220){
@@ -118,7 +147,7 @@ void updateOBJ(){
 		else if(ball.y <= 0){
 			ball.dy = 2;
 		}
-
+	}
 		//ball to left paddle
 		if (ball.x <= playerPaddle.x + playerPaddle.w && ball.y <= playerPaddle.y + playerPaddle.h && ball.y >= playerPaddle.y) { 
 			ball.dx = 2;
@@ -136,12 +165,16 @@ void resetOBJ(){
 	if (ball.x <= 0 || ball.x >= 340) {
 		if(ball.x <= 0){
 			enemyScore++;
+			printf("%i - %i\n", playerScore, enemyScore);
 		}
 		else if(ball.x >=340){
 			playerScore++;
+			printf("%i - %i\n", playerScore, enemyScore);
 		}
 		ball.x = SCREEN_XRES / 2;
 		ball.y = SCREEN_YRES / 2;
+		ball.dx = -2;
+		ball.dy = 2;
 		playerPaddle.x = playerPaddle.sx;
 		playerPaddle.y = playerPaddle.sy;
 		enemyPaddle.x = enemyPaddle.sx;
@@ -158,6 +191,7 @@ int main(void) {
 
 	//initialize window
 	InitWindow(SCREEN_XRES, SCREEN_YRES, "Fenneball");
+
 	SetTargetFPS(60);
 
 	initOBJ();
@@ -174,12 +208,38 @@ int main(void) {
 			} break;
 			case TITLE:{
 			//title code here
-			if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)){
-				curState = GAMEPLAY;
+			if(IsGamepadButtonPressed(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN)){
+				cur++;
+				printf("%i\n", cur);
 			}
-				//draw_text(&ctx, 130, 50, 0, "FENNEBALL");
-				//draw_text(&ctx, 120, 180, 0, "Press Start");
-				//flip_buffers(&ctx);
+			else if (IsGamepadButtonPressed(0, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
+				cur--;
+				printf("%i\n", cur);
+
+			}
+			if(cur == 0){
+				if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)){
+					curState = GAMEPLAY;
+				}
+				curY = 155;
+				
+			}
+		  if(cur == 1){
+					if(IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)){
+						isTwoPlayer = true;
+				 		curState = GAMEPLAY;
+					}
+				curY = 175;
+			}
+			if(cur == 2){
+				if(IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN)){
+					CloseWindow();
+				}
+				curY = 195;
+			}
+
+			//cursor wrap around
+			cur = cur % 3;
 			} break;
 			case GAMEPLAY:{
 				resetOBJ();
@@ -189,13 +249,15 @@ int main(void) {
 		}
 		BeginDrawing();
 			if(curState == TITLE){
-				DrawText("TITLE", 0, 0, 20, WHITE);
+				DrawTexture(titleTex, 0, 0, WHITE);
+				DrawTexture(curTex, curX, curY, WHITE);
+
 			}
 			else if(curState == GAMEPLAY){
 				ClearBackground(BLACK);
-				DrawRectangle(playerPaddle.x, playerPaddle.y, playerPaddle.w, playerPaddle.h, WHITE);
-				DrawRectangle(enemyPaddle.x, enemyPaddle.y, enemyPaddle.w, enemyPaddle.h, WHITE);
-				DrawRectangle(ball.x, ball.y, ball.w, ball.h, WHITE);
+				DrawTexture(paddleTex, playerPaddle.x, playerPaddle.y, WHITE);
+				DrawTexture(paddleTex, enemyPaddle.x, enemyPaddle.y, WHITE);
+				DrawTexture(ballTex, ball.x, ball.y, WHITE);
 				//DrawRectangle(SCREEN_XRES - 16, enemyTargetY, 16, 16, RED);
 			}
 			//draw here
