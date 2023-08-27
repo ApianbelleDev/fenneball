@@ -6,6 +6,7 @@
 struct Paddle {
 	//sx = start x, sy = start y
 	float sx, sy, y, x;
+	float vel, accel, maxSpeed;
 	float speed;
 	int w, h;
 	int target;
