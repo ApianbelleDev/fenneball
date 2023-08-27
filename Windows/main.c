@@ -48,8 +48,8 @@ void initOBJ(){
 	playerPaddle.x = playerPaddle.sx;
 	playerPaddle.y = playerPaddle.sy;
 	playerPaddle.vel = 0;
-	playerPaddle.accel = 1;
-	playerPaddle.maxSpeed = 3;
+	playerPaddle.accel = 10;
+	playerPaddle.maxSpeed = 10;
 	playerPaddle.speed = 3;
 	playerPaddle.w = 16;
 	playerPaddle.h = 64;
@@ -99,6 +99,7 @@ void PredictBallY(){
 }
 
 void updateOBJ(){
+	int dt = GetFrameTime();
 
 	//UPDATE BALL
 
@@ -111,20 +112,20 @@ void updateOBJ(){
 		ball.y += ball.dy;
 
 		if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
-			playerPaddle.vel -= playerPaddle.accel;
+			playerPaddle.vel -= playerPaddle.accel * GetFrameTime();
 		}
 		else if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN)) {
-			playerPaddle.vel += playerPaddle.accel;
+			playerPaddle.vel += playerPaddle.accel * GetFrameTime();
 		}
 
 		else if(playerPaddle.vel > 0) {
-			playerPaddle.vel -= playerPaddle.accel;
+			playerPaddle.vel -= playerPaddle.accel * GetFrameTime();
 			if(playerPaddle.vel < 0) {
 				playerPaddle.vel = 0;
 			}
 		}
 		else if(playerPaddle.vel < 0) {
-			playerPaddle.vel+= playerPaddle.accel;
+			playerPaddle.vel+= playerPaddle.accel * GetFrameTime();
 			if(playerPaddle.vel > 0) {
 				playerPaddle.vel = 0;
 			}
