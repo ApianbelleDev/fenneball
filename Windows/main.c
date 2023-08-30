@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include "raylib.h"
 
-
 #include "obj.h"
 #include "defines.h"
 
@@ -26,6 +25,7 @@ Texture2D paddleTex;
 Texture2D ballTex; 	
 Texture2D titleTex;
 Texture2D curTex;
+Texture2D logoTex;
 Image icon;
 
 int mod (int a, int b) {
@@ -48,8 +48,8 @@ void initOBJ(){
 	playerPaddle.x = playerPaddle.sx;
 	playerPaddle.y = playerPaddle.sy;
 	playerPaddle.vel = 0;
-	playerPaddle.accel = 10;
-	playerPaddle.maxSpeed = 10;
+	playerPaddle.accel = 20;
+	playerPaddle.maxSpeed = 3;
 	playerPaddle.speed = 3;
 	playerPaddle.w = 16;
 	playerPaddle.h = 64;
@@ -75,6 +75,7 @@ void initOBJ(){
 	ballTex     = LoadTexture("res/ball.png");
 	titleTex    = LoadTexture("res/title.png");
 	curTex      = LoadTexture("res/cur.png");
+	logoTex     = LoadTexture("res/logo.png");
 
 	icon        = LoadImage("res/ico.png");
 
@@ -99,7 +100,7 @@ void PredictBallY(){
 }
 
 void updateOBJ(){
-	int dt = GetFrameTime();
+	float dt = GetFrameTime();
 
 	//UPDATE BALL
 
@@ -112,20 +113,20 @@ void updateOBJ(){
 		ball.y += ball.dy;
 
 		if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
-			playerPaddle.vel -= playerPaddle.accel * GetFrameTime();
+			playerPaddle.vel -= playerPaddle.accel * dt;
 		}
 		else if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN)) {
-			playerPaddle.vel += playerPaddle.accel * GetFrameTime();
+			playerPaddle.vel += playerPaddle.accel * dt;
 		}
 
 		else if(playerPaddle.vel > 0) {
-			playerPaddle.vel -= playerPaddle.accel * GetFrameTime();
+			playerPaddle.vel -= playerPaddle.accel * dt;
 			if(playerPaddle.vel < 0) {
 				playerPaddle.vel = 0;
 			}
 		}
 		else if(playerPaddle.vel < 0) {
-			playerPaddle.vel+= playerPaddle.accel * GetFrameTime();
+			playerPaddle.vel+= playerPaddle.accel * dt;
 			if(playerPaddle.vel > 0) {
 				playerPaddle.vel = 0;
 			}
@@ -222,7 +223,7 @@ void resetOBJ(){
 
 
 int main(void) {
-	enum GameStates curState = GAMEPLAY;
+	enum GameStates curState = LOGO;
 	logoTimer = 180;
 	gameTimer = 60;
 
@@ -239,6 +240,8 @@ int main(void) {
 	while(!WindowShouldClose()) {
 		//set icons
 		SetWindowIcon(icon);
+
+		printf("velocity: %f\n", playerPaddle.vel);
 		
 		switch(curState){
 			case LOGO:{
@@ -291,7 +294,10 @@ int main(void) {
 			default: break;
 		}
 		BeginDrawing();
-			if(curState == TITLE){
+			if(curState == LOGO){
+				DrawTexture(logoTex, 0, 0, WHITE);
+			}
+			else if(curState == TITLE){
 				DrawTexture(titleTex, 0, 0, WHITE);
 				DrawTexture(curTex, curX, curY, WHITE);
 
